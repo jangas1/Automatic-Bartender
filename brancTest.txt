@@ -1,11 +1,15 @@
 test1
 test1test1
+
+Wstawka
 test1test1test1
 test1
-test1[Jangas]
+test1[Daniel]
 test1
 test1
 test1test1test1
 test1
 test1
 TEST 2 PRAWDOPODOBNIE MERGE ERROR
+Test Brancha
+Pracuje tu nad jakims kodem
