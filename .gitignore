@@ -3,5 +3,5 @@ firmware/CUBE/.settings
 firmware/CUBE/.launch
 firmware/CUBE/[Rr]elease
 firmware/CUBE/[Dd]ebug
-"firmware/CUBE/CUBE Debug.launch"
-"firmware/CUBE/CUBE Debug.cfg"
+firmware/CUBE/CUBE\ Debug.launch
+firmware/CUBE/CUBE\ Debug.cfg
