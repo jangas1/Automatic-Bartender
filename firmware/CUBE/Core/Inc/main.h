@@ -68,6 +68,7 @@ void Error_Handler(void);
 #define greenLED_GPIO_Port GPIOA
 #define enc_CLK_Pin GPIO_PIN_8
 #define enc_CLK_GPIO_Port GPIOA
+#define enc_CLK_EXTI_IRQn EXTI4_15_IRQn
 #define enc_DATA_Pin GPIO_PIN_9
 #define enc_DATA_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13

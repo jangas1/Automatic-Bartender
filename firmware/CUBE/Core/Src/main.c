@@ -268,11 +268,17 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(greenLED_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : enc_CLK_Pin enc_DATA_Pin */
-  GPIO_InitStruct.Pin = enc_CLK_Pin|enc_DATA_Pin;
+  /*Configure GPIO pin : enc_CLK_Pin */
+  GPIO_InitStruct.Pin = enc_CLK_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(enc_CLK_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : enc_DATA_Pin */
+  GPIO_InitStruct.Pin = enc_DATA_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  HAL_GPIO_Init(enc_DATA_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI4_15_IRQn, 3, 0);
@@ -335,9 +341,10 @@ void startEncoder(void *argument)
 			HAL_GPIO_WritePin(greenLED_GPIO_Port, greenLED_Pin,GPIO_PIN_RESET);
 			HAL_UART_Transmit(&huart2, "RIGHT\n", 6, 100);
 		}
+
 	  }
 
-	  osDelay(1);//Crucial. THIS encoder is weird
+	  osDelay(1);//Crucial. THIS encoder is bad it bounces on high to low and low to high.
 
   }
   /* USER CODE END startEncoder */

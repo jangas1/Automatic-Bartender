@@ -25,6 +25,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 extern UART_HandleTypeDef huart2;
+uint32_t debounceTimer = 0;
+#define DEBOUNCETIME 3
 
 /* USER CODE END Includes */
 
@@ -132,9 +134,34 @@ void SysTick_Handler(void)
 void EXTI4_15_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI4_15_IRQn 0 */
+
   /* USER CODE END EXTI4_15_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(enc_CLK_Pin);
   HAL_GPIO_EXTI_IRQHandler(B1_Pin);
   /* USER CODE BEGIN EXTI4_15_IRQn 1 */
+
+  /*uint32_t toc = HAL_GetTick();
+  //If encountered negative edge ignore the next edges for some time
+  if(toc-debounceTimer > DEBOUNCETIME)
+  {
+	  int clk = HAL_GPIO_ReadPin(enc_CLK_GPIO_Port, enc_CLK_Pin);
+	  if(clk == GPIO_PIN_SET)
+	  {
+		  int dir = HAL_GPIO_ReadPin(enc_DATA_GPIO_Port, enc_DATA_Pin);
+		  if (dir == GPIO_PIN_SET)
+		  {
+			  //RIGHT TURN
+			  HAL_GPIO_WritePin(greenLED_GPIO_Port, greenLED_Pin,GPIO_PIN_SET);
+			  HAL_UART_Transmit(&huart2, "LEFT\n", 5, 100);
+		  }else
+		  {
+		  	  //LEFT TURN
+			  HAL_GPIO_WritePin(greenLED_GPIO_Port, greenLED_Pin,GPIO_PIN_RESET);
+			  HAL_UART_Transmit(&huart2, "RIGHT\n", 6, 100);
+		  }
+	  }
+	  debounceTimer = toc;
+  }/*
 
   /* USER CODE END EXTI4_15_IRQn 1 */
 }
