@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "liquidcrystal_i2c.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,21 +41,65 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+I2C_HandleTypeDef hi2c1;
+
 osThreadId defaultTaskHandle;
 osThreadId diodeDetectorHandle;
 osThreadId holeStateHandle;
+osThreadId displayMenuHandle;
 /* USER CODE BEGIN PV */
 uint8_t holeState1 = 0;
+uint8_t menuCursor = 0;
+uint8_t subMenu = 0;
+
+char FirstOpt[] = "First";
+char SecondOpt[] = "Second";
+char ThirdOpt[] = "Third";
+char ForthOpt[] = "Forth";
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_I2C1_Init(void);
 void StartDefaultTask(void const * argument);
 void diodeDetector_Init(void const * argument);
 void holeState_Init(void const * argument);
+void displayMenu_Init(void const * argument);
 
 /* USER CODE BEGIN PFP */
+void defaultMenu()
+{
+	  HD44780_Clear();
+	  HD44780_SetCursor(0,0);
+	  HD44780_PrintStr(FirstOpt);
+	  HD44780_SetCursor(10,0);
+	  HD44780_PrintStr(SecondOpt);
+	  HD44780_SetCursor(0,1);
+	  HD44780_PrintStr(ThirdOpt);
+	  HD44780_SetCursor(10,1);
+	  HD44780_PrintStr(ForthOpt);
+}
+
+void EncoderLeft()
+{
+	menuCursor = menuCursor - 1;
+	if (menuCursor < 0)
+	{
+		menuCursor = 4;
+	}
+	//defaultMenu();
+}
+
+void EncoderRight()
+{
+	menuCursor = menuCursor + 1;
+	if (menuCursor > 4)
+	{
+		menuCursor = 0;
+	}
+	//defaultMenu();
+}
 
 /* USER CODE END PFP */
 
@@ -92,8 +136,18 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-
+  HD44780_Init(2);
+  HD44780_Clear();
+  HD44780_SetCursor(0,0);
+  HD44780_PrintStr(FirstOpt);
+  HD44780_SetCursor(10,0);
+  HD44780_PrintStr(SecondOpt);
+  HD44780_SetCursor(0,1);
+  HD44780_PrintStr(ThirdOpt);
+  HD44780_SetCursor(10,1);
+  HD44780_PrintStr(ForthOpt);
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -124,6 +178,10 @@ int main(void)
   /* definition and creation of holeState */
   osThreadDef(holeState, holeState_Init, osPriorityNormal, 0, 128);
   holeStateHandle = osThreadCreate(osThread(holeState), NULL);
+
+  /* definition and creation of displayMenu */
+  osThreadDef(displayMenu, displayMenu_Init, osPriorityIdle, 0, 128);
+  displayMenuHandle = osThreadCreate(osThread(displayMenu), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -188,6 +246,40 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief I2C1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C1_Init(void)
+{
+
+  /* USER CODE BEGIN I2C1_Init 0 */
+
+  /* USER CODE END I2C1_Init 0 */
+
+  /* USER CODE BEGIN I2C1_Init 1 */
+
+  /* USER CODE END I2C1_Init 1 */
+  hi2c1.Instance = I2C1;
+  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C1_Init 2 */
+
+  /* USER CODE END I2C1_Init 2 */
+
 }
 
 /**
@@ -329,14 +421,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(OTG_FS_OverCurrent_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : Audio_SCL_Pin Audio_SDA_Pin */
-  GPIO_InitStruct.Pin = Audio_SCL_Pin|Audio_SDA_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
-
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
@@ -358,7 +442,20 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+	  /*
+	  EncoderRight();
+	  osDelay(2500);
+	  EncoderRight();
+	  osDelay(2500);
+	  EncoderRight();
+	  osDelay(2500);
+	  EncoderLeft();
+	  osDelay(2500);
+	  EncoderLeft();
+	  osDelay(2500);
+	  EncoderLeft();
+  	  osDelay(2500);
+  	  */
   }
   /* USER CODE END 5 */
 }
@@ -382,6 +479,26 @@ void diodeDetector_Init(void const * argument)
 	else{
 		HAL_GPIO_WritePin(diode1_GPIO_Port, diode1_Pin, 0);
 	}
+	/* Code for other diodes after adding them
+	if (holeState2 == 1){
+		HAL_GPIO_WritePin(diode2_GPIO_Port, diode2_Pin, 1);
+	}
+	else{
+		HAL_GPIO_WritePin(diode2_GPIO_Port, diode2_Pin, 0);
+	}
+	if (holeState3 == 1){
+		HAL_GPIO_WritePin(diode3_GPIO_Port, diode3_Pin, 1);
+	}
+	else{
+		HAL_GPIO_WritePin(diode3_GPIO_Port, diode3_Pin, 0);
+	}
+	if (holeState4 == 1){
+		HAL_GPIO_WritePin(diode4_GPIO_Port, diode4_Pin, 1);
+	}
+	else{
+		HAL_GPIO_WritePin(diode4_GPIO_Port, diode4_Pin, 0);
+	}
+	*/
     osDelay(1);
   }
   /* USER CODE END diodeDetector_Init */
@@ -406,9 +523,78 @@ void holeState_Init(void const * argument)
 	else{
 		holeState1 = 0;
 	}
-    osDelay(10);
+	/* Code for checking other pin states after adding them
+	if (HAL_GPIO_ReadPin(holeStatePin2_GPIO_Port, holeStatePin2_Pin) == 1){
+		holeState2 = 1;
+	}
+	else{
+		holeState2 = 0;
+	}
+	if (HAL_GPIO_ReadPin(holeStatePin3_GPIO_Port, holeStatePin3_Pin) == 1){
+		holeState3 = 1;
+	}
+	else{
+		holeState3 = 0;
+	}
+	if (HAL_GPIO_ReadPin(holeStatePin4_GPIO_Port, holeStatePin4_Pin) == 1){
+		holeState4 = 1;
+	}
+	else{
+		holeState4 = 0;
+	}
+	*/
+    osDelay(1);
   }
   /* USER CODE END holeState_Init */
+}
+
+/* USER CODE BEGIN Header_displayMenu_Init */
+/**
+* @brief Function implementing the displayMenu thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_displayMenu_Init */
+void displayMenu_Init(void const * argument)
+{
+  /* USER CODE BEGIN displayMenu_Init */
+  /* Infinite loop */
+  for(;;)
+  {
+	switch(subMenu)
+	{
+	case 0:
+		switch(menuCursor)
+		{
+		case 0:
+			defaultMenu();
+			HD44780_SetCursor(sizeof(FirstOpt),0);
+			HD44780_PrintStr("<-");
+			break;
+		case 1:
+			defaultMenu();
+			HD44780_SetCursor(sizeof(SecondOpt)+10,0);
+			HD44780_PrintStr("<-");
+			break;
+		case 2:
+			defaultMenu();
+			HD44780_SetCursor(sizeof(ThirdOpt),1);
+			HD44780_PrintStr("<-");
+			break;
+		case 3:
+			defaultMenu();
+			HD44780_SetCursor(sizeof(ForthOpt)+10,1);
+			HD44780_PrintStr("<-");
+			break;
+		default:
+			defaultMenu();
+			HD44780_SetCursor(sizeof(FirstOpt),0);
+			HD44780_PrintStr("<-");
+		}
+	}
+    osDelay(1);
+  }
+  /* USER CODE END displayMenu_Init */
 }
 
 /**
