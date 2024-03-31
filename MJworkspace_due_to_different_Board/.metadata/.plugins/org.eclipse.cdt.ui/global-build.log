@@ -1,25 +1,19 @@
-16:48:33 **** Incremental Build of configuration Debug for project Temp ****
+20:30:07 **** Incremental Build of configuration Debug for project Temp ****
 make -j16 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/menuHandler.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/menuHandler.d" -MT"Core/Src/menuHandler.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/menuHandler.o"
 arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Temp.elf
  
 arm-none-eabi-size  Temp.elf 
 arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
    text	   data	    bss	    dec	    hex	filename
-  18436	    152	  18448	  37036	   90ac	Temp.elf
+  18712	    236	  18444	  37392	   9210	Temp.elf
 Finished building: default.size.stdout
  
 Finished building: Temp.list
  
-16:48:37 **** Incremental Build of configuration Debug for project Temp ****
-make -j16 all 
-arm-none-eabi-size  Temp.elf 
-   text	   data	    bss	    dec	    hex	filename
-  18436	    152	  18448	  37036	   90ac	Temp.elf
-Finished building: default.size.stdout
- 
-16:49:39 **** Incremental Build of configuration Debug for project Temp ****
+20:30:23 **** Incremental Build of configuration Debug for project Temp ****
 make -j16 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -28,12 +22,12 @@ Finished building target: Temp.elf
 arm-none-eabi-size  Temp.elf 
 arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
    text	   data	    bss	    dec	    hex	filename
-  18436	    152	  18448	  37036	   90ac	Temp.elf
+  18712	    236	  18444	  37392	   9210	Temp.elf
 Finished building: default.size.stdout
  
 Finished building: Temp.list
  
-16:52:05 **** Incremental Build of configuration Debug for project Temp ****
+20:31:12 **** Incremental Build of configuration Debug for project Temp ****
 make -j16 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -42,12 +36,12 @@ Finished building target: Temp.elf
 arm-none-eabi-size  Temp.elf 
 arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
    text	   data	    bss	    dec	    hex	filename
-  18468	    152	  18448	  37068	   90cc	Temp.elf
+  18536	    220	  18444	  37200	   9150	Temp.elf
 Finished building: default.size.stdout
  
 Finished building: Temp.list
  
-16:53:11 **** Incremental Build of configuration Debug for project Temp ****
+20:32:12 **** Incremental Build of configuration Debug for project Temp ****
 make -j16 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -56,12 +50,12 @@ Finished building target: Temp.elf
 arm-none-eabi-size  Temp.elf 
 arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
    text	   data	    bss	    dec	    hex	filename
-  18500	    152	  18448	  37100	   90ec	Temp.elf
+  18520	    220	  18444	  37184	   9140	Temp.elf
 Finished building: default.size.stdout
  
 Finished building: Temp.list
  
-16:54:28 **** Incremental Build of configuration Debug for project Temp ****
+20:34:36 **** Incremental Build of configuration Debug for project Temp ****
 make -j16 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -70,12 +64,12 @@ Finished building target: Temp.elf
 arm-none-eabi-size  Temp.elf 
 arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
    text	   data	    bss	    dec	    hex	filename
-  18468	    152	  18448	  37068	   90cc	Temp.elf
+  18584	    208	  18448	  37240	   9178	Temp.elf
 Finished building: default.size.stdout
  
 Finished building: Temp.list
  
-16:55:14 **** Incremental Build of configuration Debug for project Temp ****
+20:36:16 **** Incremental Build of configuration Debug for project Temp ****
 make -j16 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -84,42 +78,126 @@ Finished building target: Temp.elf
 arm-none-eabi-size  Temp.elf 
 arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
    text	   data	    bss	    dec	    hex	filename
-  18468	    152	  18448	  37068	   90cc	Temp.elf
+  18520	    220	  18444	  37184	   9140	Temp.elf
 Finished building: default.size.stdout
  
 Finished building: Temp.list
  
-16:55:33 **** Incremental Build of configuration Debug for project Temp ****
+20:36:53 **** Incremental Build of configuration Debug for project Temp ****
 make -j16 all 
 arm-none-eabi-size  Temp.elf 
    text	   data	    bss	    dec	    hex	filename
-  18468	    152	  18448	  37068	   90cc	Temp.elf
+  18520	    220	  18444	  37184	   9140	Temp.elf
 Finished building: default.size.stdout
  
-16:56:54 **** Incremental Build of configuration Debug for project Temp ****
+20:38:47 **** Incremental Build of configuration Debug for project Temp ****
 make -j16 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-size  Temp.elf 
+   text	   data	    bss	    dec	    hex	filename
+  18520	    220	  18444	  37184	   9140	Temp.elf
+Finished building: default.size.stdout
+ 
+20:41:44 **** Incremental Build of configuration Debug for project Temp ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/menuHandler.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/menuHandler.d" -MT"Core/Src/menuHandler.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/menuHandler.o"
 arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Temp.elf
  
 arm-none-eabi-size  Temp.elf 
 arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
    text	   data	    bss	    dec	    hex	filename
-  18468	    152	  18448	  37068	   90cc	Temp.elf
+  18488	    220	  18444	  37152	   9120	Temp.elf
 Finished building: default.size.stdout
  
 Finished building: Temp.list
  
-16:57:40 **** Incremental Build of configuration Debug for project Temp ****
+20:42:43 **** Incremental Build of configuration Debug for project Temp ****
 make -j16 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/menuHandler.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/menuHandler.d" -MT"Core/Src/menuHandler.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/menuHandler.o"
 arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Temp.elf
  
 arm-none-eabi-size  Temp.elf 
 arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
    text	   data	    bss	    dec	    hex	filename
-  18324	    152	  18448	  36924	   903c	Temp.elf
+  18520	    220	  18444	  37184	   9140	Temp.elf
+Finished building: default.size.stdout
+ 
+Finished building: Temp.list
+ 
+20:43:44 **** Incremental Build of configuration Debug for project Temp ****
+make -j16 all 
+arm-none-eabi-size  Temp.elf 
+   text	   data	    bss	    dec	    hex	filename
+  18520	    220	  18444	  37184	   9140	Temp.elf
+Finished building: default.size.stdout
+ 
+20:45:48 **** Incremental Build of configuration Debug for project Temp ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/menuHandler.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/menuHandler.d" -MT"Core/Src/menuHandler.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/menuHandler.o"
+arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Temp.elf
+ 
+arm-none-eabi-size  Temp.elf 
+arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
+   text	   data	    bss	    dec	    hex	filename
+  18520	    220	  18444	  37184	   9140	Temp.elf
+Finished building: default.size.stdout
+ 
+Finished building: Temp.list
+ 
+20:46:50 **** Incremental Build of configuration Debug for project Temp ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/menuHandler.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/menuHandler.d" -MT"Core/Src/menuHandler.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/menuHandler.o"
+arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Temp.elf
+ 
+arm-none-eabi-size  Temp.elf 
+arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
+   text	   data	    bss	    dec	    hex	filename
+  18488	    220	  18444	  37152	   9120	Temp.elf
+Finished building: default.size.stdout
+ 
+Finished building: Temp.list
+ 
+20:47:49 **** Incremental Build of configuration Debug for project Temp ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/menuHandler.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/menuHandler.d" -MT"Core/Src/menuHandler.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/menuHandler.o"
+arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Temp.elf
+ 
+arm-none-eabi-size  Temp.elf 
+arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
+   text	   data	    bss	    dec	    hex	filename
+  18488	    212	  18444	  37144	   9118	Temp.elf
+Finished building: default.size.stdout
+ 
+Finished building: Temp.list
+ 
+20:49:36 **** Incremental Build of configuration Debug for project Temp ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/menuHandler.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/menuHandler.d" -MT"Core/Src/menuHandler.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/menuHandler.o"
+arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Temp.elf
+ 
+arm-none-eabi-size  Temp.elf 
+arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
+   text	   data	    bss	    dec	    hex	filename
+  18520	    220	  18444	  37184	   9140	Temp.elf
+Finished building: default.size.stdout
+ 
+Finished building: Temp.list
+ 
+20:50:47 **** Incremental Build of configuration Debug for project Temp ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/menuHandler.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/menuHandler.d" -MT"Core/Src/menuHandler.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/menuHandler.o"
+arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Temp.elf
+ 
+arm-none-eabi-size  Temp.elf 
+arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
+   text	   data	    bss	    dec	    hex	filename
+  18472	    220	  18444	  37136	   9110	Temp.elf
 Finished building: default.size.stdout
  
 Finished building: Temp.list

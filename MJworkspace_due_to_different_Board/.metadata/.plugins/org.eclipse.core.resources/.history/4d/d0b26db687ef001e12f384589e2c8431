@@ -1,0 +1,54 @@
+#include "menuHandler.h"
+#include "liquidcrystal_i2c.h"
+
+char FirstOpt[] = "First";
+char SecondOpt[] = "Second";
+char ThirdOpt[] = "Third";
+char ForthOpt[] = "Forth";
+uint8_t XD = 0;
+
+void defaultMenu(){
+	  HD44780_Clear();
+	  HD44780_SetCursor(0,0);
+	  HD44780_PrintStr(FirstOpt);
+	  HD44780_SetCursor(10,0);
+	  HD44780_PrintStr(SecondOpt);
+	  HD44780_SetCursor(0,1);
+	  HD44780_PrintStr(ThirdOpt);
+	  HD44780_SetCursor(10,1);
+	  HD44780_PrintStr(ForthOpt);
+}
+
+void leftReact1(){
+	XD = 1;
+}
+
+void rightReact1(){
+	XD = 2;
+}
+void leftReact2(){
+	XD = 3;
+}
+
+void rightReact2(){
+	XD = 4;
+}
+
+void leftReact3(){
+	XD = 5;
+}
+
+void rightReact3(){
+	XD = 6;
+}
+
+void handleLeft(menu_t* self){
+    self->currentMenu->leftReact();
+    self->currentMenu = self->currentMenu->last;
+}
+
+void handleRight(menu_t* self){
+    self->currentMenu->rightReact();
+    self->currentMenu = self->currentMenu->next;
+}
+
