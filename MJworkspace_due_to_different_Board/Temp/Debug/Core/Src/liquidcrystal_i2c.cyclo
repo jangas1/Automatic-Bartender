@@ -28,4 +28,4 @@
 ../Core/Src/liquidcrystal_i2c.c:256:13:ExpanderWrite	1
 ../Core/Src/liquidcrystal_i2c.c:262:13:PulseEnable	1
 ../Core/Src/liquidcrystal_i2c.c:271:13:DelayInit	1
-../Core/Src/liquidcrystal_i2c.c:287:13:DelayUS	2
+../Core/Src/liquidcrystal_i2c.c:287:13:osDelay	2

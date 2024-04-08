@@ -15,7 +15,7 @@ static void Write4Bits(uint8_t);
 static void ExpanderWrite(uint8_t);
 static void PulseEnable(uint8_t);
 static void DelayInit(void);
-static void DelayUS(uint32_t);
+static void osDelay(uint32_t);
 
 uint8_t special1[8] = {
         0b00000,
@@ -58,23 +58,23 @@ void HD44780_Init(uint8_t rows)
 
   /* Wait for initialization */
   DelayInit();
-  HAL_Delay(50);
+  osDelay(50);
 
   ExpanderWrite(dpBacklight);
-  HAL_Delay(1000);
+  osDelay(1000);
 
   /* 4bit Mode */
   Write4Bits(0x03 << 4);
-  DelayUS(4500);
+  osDelay(4500);
 
   Write4Bits(0x03 << 4);
-  DelayUS(4500);
+  osDelay(4500);
 
   Write4Bits(0x03 << 4);
-  DelayUS(4500);
+  osDelay(4500);
 
   Write4Bits(0x02 << 4);
-  DelayUS(100);
+  osDelay(100);
 
   /* Display Control */
   SendCommand(LCD_FUNCTIONSET | dpFunction);
@@ -86,7 +86,7 @@ void HD44780_Init(uint8_t rows)
   /* Display Mode */
   dpMode = LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT;
   SendCommand(LCD_ENTRYMODESET | dpMode);
-  DelayUS(4500);
+  osDelay(4500);
 
   HD44780_CreateSpecialChar(0, special1);
   HD44780_CreateSpecialChar(1, special2);
@@ -97,13 +97,13 @@ void HD44780_Init(uint8_t rows)
 void HD44780_Clear()
 {
   SendCommand(LCD_CLEARDISPLAY);
-  DelayUS(2000);
+  osDelay(2000);
 }
 
 void HD44780_Home()
 {
   SendCommand(LCD_RETURNHOME);
-  DelayUS(2000);
+  osDelay(2000);
 }
 
 void HD44780_SetCursor(uint8_t col, uint8_t row)
@@ -262,10 +262,10 @@ static void ExpanderWrite(uint8_t _data)
 static void PulseEnable(uint8_t _data)
 {
   ExpanderWrite(_data | ENABLE);
-  DelayUS(20);
+  osDelay(20);
 
   ExpanderWrite(_data & ~ENABLE);
-  DelayUS(20);
+  osDelay(20);
 }
 
 static void DelayInit(void)
@@ -284,7 +284,7 @@ static void DelayInit(void)
   __ASM volatile ("NOP");
 }
 
-static void DelayUS(uint32_t us) {
+static void osDelay(uint32_t us) {
   uint32_t cycles = (SystemCoreClock/1000000L)*us;
   uint32_t start = DWT->CYCCNT;
   volatile uint32_t cnt;

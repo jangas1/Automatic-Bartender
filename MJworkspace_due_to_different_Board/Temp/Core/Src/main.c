@@ -19,11 +19,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
-#include <stdio.h>
-#include "menuHandler.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "menuHandler.h"
 #include "liquidcrystal_i2c.h"
 /* USER CODE END Includes */
 
@@ -54,10 +53,10 @@ uint8_t holeState1 = 0;
 uint8_t menuCursor = 0;
 uint8_t subMenu = 0;
 
-sub_t SUB1 = { .leftReact = leftReact1, .rightReact = rightReact1};
+sub_t SUB1 = { .leftReact = leftReact1, .rightReact = rightReact1,.clickedReact=clickedReact1};
 sub_t SUB2 = { .leftReact = leftReact2, .rightReact = rightReact2};
 sub_t SUB3 = { .leftReact = leftReact3, .rightReact = rightReact3};
-menu_t menu = { .handleLeft = handleLeft, .handleRight = handleRight};
+menu_t menu = { .handleLeft = handleLeft, .handleRight = handleRight, .clickedReact=handleClicked};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -133,8 +132,7 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  HD44780_Init(2);
-  defaultMenu();
+
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -155,7 +153,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityAboveNormal, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of diodeDetector */
@@ -251,7 +249,7 @@ static void MX_I2C1_Init(void)
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
-  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.ClockSpeed = 25000;
   hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
@@ -426,10 +424,11 @@ static void MX_GPIO_Init(void)
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN 5 */
+	HD44780_Init(2);
+	sub3Menu();
   /* Infinite loop */
   for(;;)
   {
-	  /*
 	  menuCursor = 0;
 	  osDelay(2000);
 	  menuCursor = 1;
@@ -437,11 +436,12 @@ void StartDefaultTask(void const * argument)
 	  sub3Menu();
 	  menu.currentMenu = &SUB3;
 	  osDelay(10);
-	  */
 	  menuCursor = 0;
 	  osDelay(2000);
 	  menuCursor = 1;
 	  osDelay(2000);
+	  defaultMenu();
+	  menu.currentMenu = &SUB1;
   }
   /* USER CODE END 5 */
 }
@@ -485,7 +485,7 @@ void diodeDetector_Init(void const * argument)
 		HAL_GPIO_WritePin(diode4_GPIO_Port, diode4_Pin, 0);
 	}
 	*/
-    osDelay(1);
+    osDelay(10000);
   }
   /* USER CODE END diodeDetector_Init */
 }
@@ -529,7 +529,7 @@ void holeState_Init(void const * argument)
 		holeState4 = 0;
 	}
 	*/
-    osDelay(1);
+    osDelay(10000);
   }
   /* USER CODE END holeState_Init */
 }
@@ -547,6 +547,7 @@ void displayMenu_Init(void const * argument)
   /* Infinite loop */
   for(;;)
   {
+	  /*
     if (menuCursor == 0)
     {
         menu.handleLeft(&menu);
@@ -557,7 +558,8 @@ void displayMenu_Init(void const * argument)
         menu.handleRight(&menu);
         continue;
     }
-    osDelay(1);
+    osDelay(500);
+    */
   }
   /* USER CODE END displayMenu_Init */
 }
