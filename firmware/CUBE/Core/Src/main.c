@@ -60,7 +60,7 @@ const osThreadAttr_t encoderHandler_attributes = {
   .priority = (osPriority_t) osPriorityLow,
 };
 /* USER CODE BEGIN PV */
-uint32_t position = 248;
+uint32_t position = 282;
 
 /* USER CODE END PV */
 
@@ -372,7 +372,13 @@ void StartDefaultTask(void *argument)
   {
 	//HAL_GPIO_TogglePin(greenLED_GPIO_Port, greenLED_Pin);
     TIM3->CCR2 = position;
-	 osDelay(10);
+    if (position==451) {
+		//position=90;
+	}else {
+		//position=position+1;
+	}
+    //For current clocks 90 is 0deg 451 is 180deg 270 is center
+	 osDelay(5);
   }
   /* USER CODE END 5 */
 }
