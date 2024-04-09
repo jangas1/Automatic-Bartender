@@ -49,13 +49,14 @@ osThreadId diodeDetectorHandle;
 osThreadId holeStateHandle;
 osThreadId displayMenuHandle;
 /* USER CODE BEGIN PV */
+/* delete them later */
 uint8_t holeState1 = 0;
 uint8_t menuCursor = 0;
 uint8_t subMenu = 0;
 
-sub_t SUB1 = { .leftReact = leftReact1, .rightReact = rightReact1,.clickedReact=clickedReact1};
-sub_t SUB2 = { .leftReact = leftReact2, .rightReact = rightReact2};
-sub_t SUB3 = { .leftReact = leftReact3, .rightReact = rightReact3};
+sub_t SUB1 = { .leftReact = leftReact1, .rightReact = rightReact1, .clickedReact=clickedReact1};
+sub_t SUB2 = { .leftReact = leftReact2, .rightReact = rightReact2, .clickedReact=clickedReact2};
+sub_t SUB3 = { .leftReact = leftReact3, .rightReact = rightReact3, .clickedReact=clickedReact3};
 menu_t menu = { .handleLeft = handleLeft, .handleRight = handleRight, .clickedReact=handleClicked};
 /* USER CODE END PV */
 
@@ -103,12 +104,6 @@ void EncoderRight(){
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  SUB1.last = &SUB3;
-  SUB1.next = &SUB2;
-  SUB2.last = &SUB1;
-  SUB2.next = &SUB3;
-  SUB3.last = &SUB2;
-  SUB3.next = &SUB1;
   menu.currentMenu = &SUB1;
   /* USER CODE END 1 */
 
@@ -424,24 +419,48 @@ static void MX_GPIO_Init(void)
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN 5 */
-	HD44780_Init(2);
-	sub3Menu();
+
   /* Infinite loop */
   for(;;)
   {
-	  menuCursor = 0;
 	  osDelay(2000);
-	  menuCursor = 1;
-	  osDelay(2000);
-	  sub3Menu();
 	  menu.currentMenu = &SUB3;
-	  osDelay(10);
-	  menuCursor = 0;
+	  menu.menuChanged = 1;
+	  drinkAddCounter1();
+	  menu.menuChanged = 1;
 	  osDelay(2000);
-	  menuCursor = 1;
+	  drinkAddCounter2();
+	  menu.menuChanged = 1;
 	  osDelay(2000);
-	  defaultMenu();
+	  drinkAddCounter2();
+	  menu.menuChanged = 1;
+	  osDelay(2000);
+	  drinkAddCounter4();
+	  menu.menuChanged = 1;
+	  osDelay(2000);
+	  drinkAddCounter3();
+	  menu.menuChanged = 1;
+	  osDelay(2000);
+	  drinkAddCounter4();
+	  drinkAddCounter1();
+	  menu.menuChanged = 1;
+	  osDelay(2000);
+	  drinkAddCounter2();
+	  drinkAddCounter3();
+	  drinkAddCounter4();
+	  menu.menuChanged = 1;
+	  osDelay(2000);
+	  menu.handleRight(&menu);
+	  menu.menuChanged = 1;
+	  osDelay(2000);
+	  drinkCounterReset();
+	  menu.menuChanged = 1;
+	  osDelay(2000);
 	  menu.currentMenu = &SUB1;
+	  menu.menuChanged = 1;
+	  osDelay(2000);
+	  menu.handleRight(&menu);
+	  menu.menuChanged = 1;
   }
   /* USER CODE END 5 */
 }
@@ -544,22 +563,43 @@ void holeState_Init(void const * argument)
 void displayMenu_Init(void const * argument)
 {
   /* USER CODE BEGIN displayMenu_Init */
+  HD44780_Init(2);
+  drinkCounterReset();
+  menu.cursorPos = 0;
+  menu.menuChanged = 1;
   /* Infinite loop */
   for(;;)
   {
-	  /*
-    if (menuCursor == 0)
-    {
-        menu.handleLeft(&menu);
-        continue;
-    }
-    if (menuCursor == 1)
-    {
-        menu.handleRight(&menu);
-        continue;
-    }
-    osDelay(500);
-    */
+	  if(menu.menuChanged==1){
+		  if (menu.currentMenu==&SUB1){
+			  defaultMenu();
+			  switch(menu.cursorPos){
+			  	  case 0:
+			  		  defaultMenuCursorPos1();
+			  		  break;
+			  	  case 1:
+			  		  defaultMenuCursorPos2();
+			  		  break;
+			  	  default:
+			  		  menuError();
+			  }
+		  }
+		  if (menu.currentMenu==&SUB3){
+			  sub3Menu();
+			  switch(menu.cursorPos){
+			  	  case 0:
+			  		  sub3MenuCursorPos1();
+			  		  break;
+			  	  case 1:
+			  		  sub3MenuCursorPos2();
+			  		  break;
+			  	  default:
+			  		  menuError();
+			  }
+		  }
+	  menu.menuChanged = 0;
+	  }
+	osDelay(30);
   }
   /* USER CODE END displayMenu_Init */
 }

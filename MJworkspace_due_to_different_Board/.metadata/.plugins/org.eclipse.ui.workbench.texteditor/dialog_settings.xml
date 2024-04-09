@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="osDelay"/>
+		<item key="selection" value="self-&gt;"/>
 		<list key="findhistory">
+			<item value="self."/>
 			<item value="DelayUS"/>
 			<item value="HAL_Delay"/>
 			<item value="HD44780_Init"/>
@@ -17,6 +18,7 @@
 			<item value="menuCursor"/>
 		</list>
 		<list key="replacehistory">
+			<item value="self-&gt;"/>
 			<item value="osDelay"/>
 		</list>
 	</section>

@@ -10,31 +10,27 @@
 
 void defaultMenu();
 void sub3Menu();
+void menuError();
 
-void leftReact1();
-void rightReact1();
+void defaultMenuCursorPos1();
+void defaultMenuCursorPos2();
+void sub3MenuCursorPos1();
+void sub3MenuCursorPos2();
 
-void leftReact2();
-void rightReact2();
-
-void leftReact3();
-void rightReact3();
-
-void handleLeft();
-void handleRight();
-
-
+void drinkAddCounter1();
+void drinkAddCounter2();
+void drinkAddCounter3();
+void drinkAddCounter4();
+void drinkResetCounter();
 
 typedef struct Menu menu_t;
 
 typedef struct sub_struct
 {
     menu_t *menu;
-    void (*leftReact)();
-    void (*rightReact)();
+    void (*leftReact)(menu_t*);
+    void (*rightReact)(menu_t*);
     void (*clickedReact)(menu_t*);
-    void *next;
-    void *last;
 } sub_t;
 
 typedef struct sub_struct sub_t;
@@ -43,12 +39,28 @@ typedef struct Menu
 {
     sub_t *currentMenu ;
     int cursorPos;
+    int menuChanged;
     void (*handleLeft)(menu_t*);
     void (*handleRight)(menu_t*);
     void (*clickedReact)(menu_t*);
 } menu_t;
 
+void leftReact1(menu_t* self);
+void rightReact1(menu_t* self);
+
+void leftReact2(menu_t* self);
+void rightReact2(menu_t* self);
+
+void leftReact3(menu_t* self);
+void rightReact3(menu_t* self);
+
+void handleLeft(menu_t* self);
+void handleRight(menu_t* self);
+
 void clickedReact(menu_t*);
 void handleClicked(menu_t* self);
 void clickedReact1(menu_t* self);
+void clickedReact2(menu_t* self);
+void clickedReact3(menu_t* self);
+
 #endif /* INC_MENUHANDLER_H_ */

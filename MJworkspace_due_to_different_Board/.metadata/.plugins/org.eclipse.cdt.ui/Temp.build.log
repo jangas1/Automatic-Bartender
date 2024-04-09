@@ -1,18 +1,21 @@
-22:50:14 **** Incremental Build of configuration Debug for project Temp ****
+22:40:34 **** Incremental Build of configuration Debug for project Temp ****
 make -j16 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc "../Core/Src/menuHandler.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/menuHandler.d" -MT"Core/Src/menuHandler.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/menuHandler.o"
+../Core/Src/main.c: In function 'StartDefaultTask':
+../Core/Src/main.c:456:11: warning: implicit declaration of function 'drinkCounterReset' [-Wimplicit-function-declaration]
+  456 |           drinkCounterReset();
+      |           ^~~~~~~~~~~~~~~~~
 arm-none-eabi-gcc -o "Temp.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Temp.elf
  
 arm-none-eabi-size  Temp.elf 
 arm-none-eabi-objdump -h -S Temp.elf  > "Temp.list"
    text	   data	    bss	    dec	    hex	filename
-  18616	    256	  18448	  37320	   91c8	Temp.elf
+  21808	    220	  18484	  40512	   9e40	Temp.elf
 Finished building: default.size.stdout
  
 Finished building: Temp.list
  
 
-22:50:15 Build Finished. 0 errors, 0 warnings. (took 940ms)
+22:40:36 Build Finished. 0 errors, 1 warnings. (took 1s.801ms)
 
