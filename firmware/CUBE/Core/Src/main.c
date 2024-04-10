@@ -22,6 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "servo.h"
 
 /* USER CODE END Includes */
 
@@ -32,6 +33,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define MAIN
 
 /* USER CODE END PD */
 
@@ -60,7 +62,6 @@ const osThreadAttr_t encoderHandler_attributes = {
   .priority = (osPriority_t) osPriorityLow,
 };
 /* USER CODE BEGIN PV */
-uint32_t position = 282;
 
 /* USER CODE END PV */
 
@@ -362,23 +363,31 @@ static void MX_GPIO_Init(void)
   * @param  argument: Not used
   * @retval None
   */
+servo_t servo = {.rotation=0,.setRotation=setRotation,.initServo=initServo};
+
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
-
+	servo.initServo(&servo);
+	int LR=0;
   /* Infinite loop */
   for(;;)
   {
-	//HAL_GPIO_TogglePin(greenLED_GPIO_Port, greenLED_Pin);
-    TIM3->CCR2 = position;
-    if (position==451) {
-		//position=90;
-	}else {
-		//position=position+1;
+	  if (LR)
+	  {
+		  servo.setRotation(&servo,++servo.rotation);
+	  }else {
+		  servo.setRotation(&servo,--servo.rotation);
+	  }
+
+    if (servo.rotation==180) {
+    	LR = 0;
+	}else if(servo.rotation==0) {
+		LR = 1;
 	}
     //For current clocks 90 is 0deg 451 is 180deg 270 is center
-	 osDelay(5);
+	 osDelay(25);
   }
   /* USER CODE END 5 */
 }
@@ -407,12 +416,12 @@ void startEncoder(void *argument)
 		if (direction == newClock) {
 			//RIGHT TURN
 			HAL_GPIO_WritePin(greenLED_GPIO_Port, greenLED_Pin,GPIO_PIN_SET);
-			position = position - 10;
+			//position = position - 10;
 			HAL_UART_Transmit(&huart2, "LEFT\n", 5, 100);
 		}else {
 			//LEFT TURN
 			HAL_GPIO_WritePin(greenLED_GPIO_Port, greenLED_Pin,GPIO_PIN_RESET);
-			position = position + 10;
+			//position = position + 10;
 			HAL_UART_Transmit(&huart2, "RIGHT\n", 6, 100);
 		}
 
