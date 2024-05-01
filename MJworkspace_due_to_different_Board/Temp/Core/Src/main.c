@@ -424,6 +424,17 @@ void StartDefaultTask(void const * argument)
   for(;;)
   {
 	  osDelay(2000);
+	  menu.handleLeft(&menu);
+	  osDelay(2000);
+	  menu.clickedReact(&menu);
+	  /*
+	  osDelay(2000);
+	  menu.currentMenu = &SUB2;
+	  menu.menuChanged = 1;
+	  osDelay(5000);
+	  menu.handleLeft(&menu);
+	  menu.menuChanged = 1;
+	  osDelay(2000);
 	  menu.currentMenu = &SUB3;
 	  menu.menuChanged = 1;
 	  drinkAddCounter1();
@@ -461,6 +472,7 @@ void StartDefaultTask(void const * argument)
 	  osDelay(2000);
 	  menu.handleRight(&menu);
 	  menu.menuChanged = 1;
+	  */
   }
   /* USER CODE END 5 */
 }
@@ -565,11 +577,26 @@ void displayMenu_Init(void const * argument)
   /* USER CODE BEGIN displayMenu_Init */
   HD44780_Init(2);
   drinkCounterReset();
+  menu.subMenuFlag = 1;
   menu.cursorPos = 0;
   menu.menuChanged = 1;
+  menu.mililiters = 10;
   /* Infinite loop */
   for(;;)
   {
+	  switch(menu.subMenuFlag){
+	  	  case 1:
+	  		  menu.currentMenu = &SUB1;
+	  		  break;
+	  	  case 2:
+	          menu.currentMenu = &SUB2;
+	          break;
+	  	  case 3:
+	  		  menu.currentMenu = &SUB3;
+	  		  break;
+	  	  default:
+	  		  menuError();
+	  }
 	  if(menu.menuChanged==1){
 		  if (menu.currentMenu==&SUB1){
 			  defaultMenu();
@@ -579,6 +606,19 @@ void displayMenu_Init(void const * argument)
 			  		  break;
 			  	  case 1:
 			  		  defaultMenuCursorPos2();
+			  		  break;
+			  	  default:
+			  		  menuError();
+			  }
+		  }
+		  if (menu.currentMenu==&SUB2){
+			  sub2Menu(&menu);
+			  switch(menu.cursorPos){
+			  	  case 0:
+			  		  sub2MenuCursorPos1();
+			  		  break;
+			  	  case 1:
+			  		  sub2MenuCursorPos2();
 			  		  break;
 			  	  default:
 			  		  menuError();
