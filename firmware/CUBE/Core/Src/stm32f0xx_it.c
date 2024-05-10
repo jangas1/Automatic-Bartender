@@ -161,9 +161,9 @@ void EXTI4_15_IRQHandler(void)
 		  }
 	  }
 	  debounceTimer = toc;
-  }/*
+  }
 
-  /* USER CODE END EXTI4_15_IRQn 1 */
+   USER CODE END EXTI4_15_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

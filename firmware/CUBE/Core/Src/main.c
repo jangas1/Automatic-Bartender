@@ -363,22 +363,21 @@ static void MX_GPIO_Init(void)
   * @param  argument: Not used
   * @retval None
   */
-servo_t servo = {.rotation=0,.setRotation=setRotation,.initServo=initServo};
 
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
-	servo.initServo(&servo);
+	servo.initServo();
 	int LR=0;
   /* Infinite loop */
   for(;;)
   {
 	  if (LR)
 	  {
-		  servo.setRotation(&servo,++servo.rotation);
+		  servo.setRotation(++servo.rotation);
 	  }else {
-		  servo.setRotation(&servo,--servo.rotation);
+		  servo.setRotation(--servo.rotation);
 	  }
 
     if (servo.rotation==180) {
@@ -412,17 +411,17 @@ void startEncoder(void *argument)
 	  newClock = HAL_GPIO_ReadPin(enc_CLK_GPIO_Port, enc_CLK_Pin);
 	  direction = HAL_GPIO_ReadPin(enc_DATA_GPIO_Port, enc_DATA_Pin);
 	  if (((lastClock != newClock)&& newClock == 1)) {
-		  HAL_UART_Transmit(&huart2, "Clock ", 6, 100);
+		  HAL_UART_Transmit(&huart2, (uint8_t*)"Clock ", 6, 100);
 		if (direction == newClock) {
 			//RIGHT TURN
 			HAL_GPIO_WritePin(greenLED_GPIO_Port, greenLED_Pin,GPIO_PIN_SET);
 			//position = position - 10;
-			HAL_UART_Transmit(&huart2, "LEFT\n", 5, 100);
+			HAL_UART_Transmit(&huart2, (uint8_t*)"LEFT\n", 5, 100);
 		}else {
 			//LEFT TURN
 			HAL_GPIO_WritePin(greenLED_GPIO_Port, greenLED_Pin,GPIO_PIN_RESET);
 			//position = position + 10;
-			HAL_UART_Transmit(&huart2, "RIGHT\n", 6, 100);
+			HAL_UART_Transmit(&huart2, (uint8_t*)"RIGHT\n", 6, 100);
 		}
 
 	  }
