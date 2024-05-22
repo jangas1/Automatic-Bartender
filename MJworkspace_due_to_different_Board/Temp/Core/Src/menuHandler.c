@@ -219,11 +219,9 @@ void clickedReact1(menu_t* self){
 		case 0:
 			self->subMenuFlag = 2;
 			break;
-			//self->currentMenu = &SUB2;
 		case 1:
 			self->subMenuFlag = 3;
 			break;
-			//self->currentMenu = &SUB3;
 		default:
 			menuError();
 	}
@@ -238,7 +236,6 @@ void clickedReact2(menu_t* self){
 			break;
 		case 1:
 			self->subMenuFlag = 1;
-			//self->currentMenu = &SUB1;
 			self->cursorPos = 0;
 			break;
 		default:
@@ -254,7 +251,6 @@ void clickedReact3(menu_t* self){
 			break;
 		case 1:
 			self->subMenuFlag = 1;
-			//self->currentMenu = &SUB1;
 			self->cursorPos = 0;
 			break;
 		case 2:

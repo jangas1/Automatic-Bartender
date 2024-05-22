@@ -33,7 +33,7 @@ typedef struct sub_struct
 
 typedef struct sub_struct sub_t;
 
-/*
+
 
 typedef struct drink_position
 {
@@ -45,21 +45,20 @@ typedef struct drink_position
 
 typedef struct drink_position drinkpos_t;
 
-*/
+
 
 typedef struct Menu
 {
     sub_t *currentMenu;
-    //drinkpos_t *currentDrink;
+    drinkpos_t *currentDrink;
     int cursorPos;
     int menuChanged;
     int subMenuFlag;
     int mililiters;
-    /*
+    /* next 3 apply to not implemented drink position detection */
     void (*handleDrinkAdd)(menu_t*);
     void (*handleDrinkReset)(menu_t*);
     void (*handledrinkDetected)(menu_t*);
-    */
     void (*handleLeft)(menu_t*);
     void (*handleRight)(menu_t*);
     void (*clickedReact)(menu_t*);

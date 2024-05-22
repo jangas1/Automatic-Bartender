@@ -20,8 +20,8 @@
 ../Core/Src/menuHandler.c:200:6:leftReact3	16	static
 ../Core/Src/menuHandler.c:208:6:rightReact3	16	static
 ../Core/Src/menuHandler.c:216:6:clickedReact1	16	static
-../Core/Src/menuHandler.c:233:6:clickedReact2	16	static
-../Core/Src/menuHandler.c:249:6:clickedReact3	16	static
-../Core/Src/menuHandler.c:266:6:handleLeft	16	static
-../Core/Src/menuHandler.c:270:6:handleRight	16	static
-../Core/Src/menuHandler.c:274:6:handleClicked	16	static
+../Core/Src/menuHandler.c:231:6:clickedReact2	16	static
+../Core/Src/menuHandler.c:246:6:clickedReact3	16	static
+../Core/Src/menuHandler.c:262:6:handleLeft	16	static
+../Core/Src/menuHandler.c:266:6:handleRight	16	static
+../Core/Src/menuHandler.c:270:6:handleClicked	16	static

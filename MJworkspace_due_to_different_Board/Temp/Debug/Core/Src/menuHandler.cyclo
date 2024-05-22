@@ -20,8 +20,8 @@
 ../Core/Src/menuHandler.c:200:6:leftReact3	2
 ../Core/Src/menuHandler.c:208:6:rightReact3	2
 ../Core/Src/menuHandler.c:216:6:clickedReact1	3
-../Core/Src/menuHandler.c:233:6:clickedReact2	3
-../Core/Src/menuHandler.c:249:6:clickedReact3	5
-../Core/Src/menuHandler.c:266:6:handleLeft	1
-../Core/Src/menuHandler.c:270:6:handleRight	1
-../Core/Src/menuHandler.c:274:6:handleClicked	1
+../Core/Src/menuHandler.c:231:6:clickedReact2	3
+../Core/Src/menuHandler.c:246:6:clickedReact3	5
+../Core/Src/menuHandler.c:262:6:handleLeft	1
+../Core/Src/menuHandler.c:266:6:handleRight	1
+../Core/Src/menuHandler.c:270:6:handleClicked	1

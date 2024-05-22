@@ -427,52 +427,6 @@ void StartDefaultTask(void const * argument)
 	  menu.handleLeft(&menu);
 	  osDelay(2000);
 	  menu.clickedReact(&menu);
-	  /*
-	  osDelay(2000);
-	  menu.currentMenu = &SUB2;
-	  menu.menuChanged = 1;
-	  osDelay(5000);
-	  menu.handleLeft(&menu);
-	  menu.menuChanged = 1;
-	  osDelay(2000);
-	  menu.currentMenu = &SUB3;
-	  menu.menuChanged = 1;
-	  drinkAddCounter1();
-	  menu.menuChanged = 1;
-	  osDelay(2000);
-	  drinkAddCounter2();
-	  menu.menuChanged = 1;
-	  osDelay(2000);
-	  drinkAddCounter2();
-	  menu.menuChanged = 1;
-	  osDelay(2000);
-	  drinkAddCounter4();
-	  menu.menuChanged = 1;
-	  osDelay(2000);
-	  drinkAddCounter3();
-	  menu.menuChanged = 1;
-	  osDelay(2000);
-	  drinkAddCounter4();
-	  drinkAddCounter1();
-	  menu.menuChanged = 1;
-	  osDelay(2000);
-	  drinkAddCounter2();
-	  drinkAddCounter3();
-	  drinkAddCounter4();
-	  menu.menuChanged = 1;
-	  osDelay(2000);
-	  menu.handleRight(&menu);
-	  menu.menuChanged = 1;
-	  osDelay(2000);
-	  drinkCounterReset();
-	  menu.menuChanged = 1;
-	  osDelay(2000);
-	  menu.currentMenu = &SUB1;
-	  menu.menuChanged = 1;
-	  osDelay(2000);
-	  menu.handleRight(&menu);
-	  menu.menuChanged = 1;
-	  */
   }
   /* USER CODE END 5 */
 }
