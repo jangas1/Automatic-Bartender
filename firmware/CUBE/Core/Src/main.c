@@ -23,7 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "servo.h"
-
+#include "encoder.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,6 +44,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim3;
+TIM_HandleTypeDef htim15;
 
 UART_HandleTypeDef huart2;
 
@@ -54,13 +55,6 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
-/* Definitions for encoderHandler */
-osThreadId_t encoderHandlerHandle;
-const osThreadAttr_t encoderHandler_attributes = {
-  .name = "encoderHandler",
-  .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityLow,
-};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -70,8 +64,8 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM3_Init(void);
+static void MX_TIM15_Init(void);
 void StartDefaultTask(void *argument);
-void startEncoder(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -96,7 +90,6 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
-
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
@@ -112,8 +105,12 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_TIM3_Init();
+  MX_TIM15_Init();
   /* USER CODE BEGIN 2 */
+  encoderInit(); //Initialize b4 interrupt or will crash
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+  HAL_TIM_Base_Start_IT(&htim15);
+
   /* USER CODE END 2 */
 
   /* Init scheduler */
@@ -138,9 +135,6 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
-
-  /* creation of encoderHandler */
-  encoderHandlerHandle = osThreadNew(startEncoder, NULL, &encoderHandler_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -267,6 +261,52 @@ static void MX_TIM3_Init(void)
 }
 
 /**
+  * @brief TIM15 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM15_Init(void)
+{
+
+  /* USER CODE BEGIN TIM15_Init 0 */
+
+  /* USER CODE END TIM15_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM15_Init 1 */
+
+  /* USER CODE END TIM15_Init 1 */
+  htim15.Instance = TIM15;
+  htim15.Init.Prescaler = 0;
+  htim15.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim15.Init.Period = 60000;
+  htim15.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim15.Init.RepetitionCounter = 0;
+  htim15.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim15) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim15, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim15, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM15_Init 2 */
+
+  /* USER CODE END TIM15_Init 2 */
+
+}
+
+/**
   * @brief USART2 Initialization Function
   * @param None
   * @retval None
@@ -363,22 +403,21 @@ static void MX_GPIO_Init(void)
   * @param  argument: Not used
   * @retval None
   */
-servo_t servo = {.rotation=0,.setRotation=setRotation,.initServo=initServo};
 
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
-	servo.initServo(&servo);
+	servo.initServo();
 	int LR=0;
   /* Infinite loop */
   for(;;)
   {
 	  if (LR)
 	  {
-		  servo.setRotation(&servo,++servo.rotation);
+		  servo.setRotation(++servo.rotation);
 	  }else {
-		  servo.setRotation(&servo,--servo.rotation);
+		  servo.setRotation(--servo.rotation);
 	  }
 
     if (servo.rotation==180) {
@@ -390,47 +429,6 @@ void StartDefaultTask(void *argument)
 	 osDelay(25);
   }
   /* USER CODE END 5 */
-}
-
-/* USER CODE BEGIN Header_startEncoder */
-/**
-* @brief Function implementing the encoderHandler thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_startEncoder */
-void startEncoder(void *argument)
-{
-  /* USER CODE BEGIN startEncoder */
-	uint8_t lastClock = HAL_GPIO_ReadPin(enc_CLK_GPIO_Port, enc_CLK_Pin);
-	uint8_t newClock = lastClock;
-	uint8_t direction = HAL_GPIO_ReadPin(enc_DATA_GPIO_Port, enc_DATA_Pin);
-	/* Infinite loop */
-  for(;;)
-  	  {
-	  lastClock = newClock;
-	  newClock = HAL_GPIO_ReadPin(enc_CLK_GPIO_Port, enc_CLK_Pin);
-	  direction = HAL_GPIO_ReadPin(enc_DATA_GPIO_Port, enc_DATA_Pin);
-	  if (((lastClock != newClock)&& newClock == 1)) {
-		  HAL_UART_Transmit(&huart2, "Clock ", 6, 100);
-		if (direction == newClock) {
-			//RIGHT TURN
-			HAL_GPIO_WritePin(greenLED_GPIO_Port, greenLED_Pin,GPIO_PIN_SET);
-			//position = position - 10;
-			HAL_UART_Transmit(&huart2, "LEFT\n", 5, 100);
-		}else {
-			//LEFT TURN
-			HAL_GPIO_WritePin(greenLED_GPIO_Port, greenLED_Pin,GPIO_PIN_RESET);
-			//position = position + 10;
-			HAL_UART_Transmit(&huart2, "RIGHT\n", 6, 100);
-		}
-
-	  }
-
-	  osDelay(1);//Crucial. THIS encoder is bad it bounces on high to low and low to high.
-
-  }
-  /* USER CODE END startEncoder */
 }
 
 /**
