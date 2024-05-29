@@ -1038,3 +1038,18 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-05-08 14:00:07.894
 !MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2024-05-29 13:18:06.176 -----------------------------------------------
+eclipse.buildId=Version 1.14.0
+java.version=17.0.8.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pl_PL
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-05-29 13:19:14.214
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-05-29 13:19:14.216
+!MESSAGE Log4j2 initialized with config file C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-05-29 13:19:30.510
+!MESSAGE Started RMI Server, listening on port 41337

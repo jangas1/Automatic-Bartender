@@ -1,0 +1,16 @@
+#ifndef INC_SHOTHOLDER_H_
+#define INC_SHOTHOLDER_H_
+
+typedef struct drink_position
+{
+	int postitionOfDrinks[4];
+    void (*drinkAdd)(drinkpos_t*);
+    void (*drinkReset)(drinkpos_t*);
+    void (*drinkDetected)(drinkpos_t*);
+} drinkpos_t;
+
+void drinkAdd(drinkpos_t* self);
+void drinkReset(drinkpos_t* self);
+void drinkDetected(drinkpos_t* self);
+
+#endif

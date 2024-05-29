@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "menuHandler.h"
+#include "shotHolder.h"
 #include "liquidcrystal_i2c.h"
 /* USER CODE END Includes */
 
@@ -54,10 +55,11 @@ uint8_t holeState1 = 0;
 uint8_t menuCursor = 0;
 uint8_t subMenu = 0;
 
-sub_t SUB1 = { .leftReact = leftReact1, .rightReact = rightReact1, .clickedReact=clickedReact1};
-sub_t SUB2 = { .leftReact = leftReact2, .rightReact = rightReact2, .clickedReact=clickedReact2};
-sub_t SUB3 = { .leftReact = leftReact3, .rightReact = rightReact3, .clickedReact=clickedReact3};
-menu_t menu = { .handleLeft = handleLeft, .handleRight = handleRight, .clickedReact=handleClicked};
+sub_t SUB1 = {.leftReact = leftReact1, .rightReact = rightReact1, .clickedReact=clickedReact1};
+sub_t SUB2 = {.leftReact = leftReact2, .rightReact = rightReact2, .clickedReact=clickedReact2};
+sub_t SUB3 = {.leftReact = leftReact3, .rightReact = rightReact3, .clickedReact=clickedReact3};
+menu_t menu = {.handleLeft = handleLeft, .handleRight = handleRight, .clickedReact=handleClicked};
+drinkpos_t drinkpos = {{0,0,0,0}, .drinkChange = drinkChange, .drinkReset = drinkReset};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -444,33 +446,31 @@ void diodeDetector_Init(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	if (holeState1 == 1){
+	if (drinkpos.postitionOfDrinks[0] == 1){
 		HAL_GPIO_WritePin(diode1_GPIO_Port, diode1_Pin, 1);
 	}
 	else{
 		HAL_GPIO_WritePin(diode1_GPIO_Port, diode1_Pin, 0);
 	}
-	/* Code for other diodes after adding them
-	if (holeState2 == 1){
+	if (drinkpos.postitionOfDrinks[1] == 1){
 		HAL_GPIO_WritePin(diode2_GPIO_Port, diode2_Pin, 1);
 	}
 	else{
 		HAL_GPIO_WritePin(diode2_GPIO_Port, diode2_Pin, 0);
 	}
-	if (holeState3 == 1){
+	if (drinkpos.postitionOfDrinks[2] == 1){
 		HAL_GPIO_WritePin(diode3_GPIO_Port, diode3_Pin, 1);
 	}
 	else{
 		HAL_GPIO_WritePin(diode3_GPIO_Port, diode3_Pin, 0);
 	}
-	if (holeState4 == 1){
+	if (drinkpos.postitionOfDrinks[3] == 1){
 		HAL_GPIO_WritePin(diode4_GPIO_Port, diode4_Pin, 1);
 	}
 	else{
 		HAL_GPIO_WritePin(diode4_GPIO_Port, diode4_Pin, 0);
 	}
-	*/
-    osDelay(10000);
+	osDelay(30);
   }
   /* USER CODE END diodeDetector_Init */
 }
@@ -489,32 +489,30 @@ void holeState_Init(void const * argument)
   for(;;)
   {
 	if (HAL_GPIO_ReadPin(holeStatePin1_GPIO_Port, holeStatePin1_Pin) == 1){
-		holeState1 = 1;
+		drinkpos.drinkChange(&drinkpos, 1);
 	}
 	else{
-		holeState1 = 0;
+		drinkpos.drinkChange(&dirnkpos, 11);
 	}
-	/* Code for checking other pin states after adding them
 	if (HAL_GPIO_ReadPin(holeStatePin2_GPIO_Port, holeStatePin2_Pin) == 1){
-		holeState2 = 1;
+		drinkpos.drinkChange(&drinkpos, 2);
 	}
 	else{
-		holeState2 = 0;
+		drinkpos.drinkChange(&dirnkpos, 22);
 	}
 	if (HAL_GPIO_ReadPin(holeStatePin3_GPIO_Port, holeStatePin3_Pin) == 1){
-		holeState3 = 1;
+		drinkpos.drinkChange(&drinkpos, 3);
 	}
 	else{
-		holeState3 = 0;
+		drinkpos.drinkChange(&dirnkpos, 33);
 	}
 	if (HAL_GPIO_ReadPin(holeStatePin4_GPIO_Port, holeStatePin4_Pin) == 1){
-		holeState4 = 1;
+		drinkpos.drinkChange(&drinkpos, 4);
 	}
 	else{
-		holeState4 = 0;
+		drinkpos.drinkChange(&dirnkpos, 44);
 	}
-	*/
-    osDelay(10000);
+    osDelay(30);
   }
   /* USER CODE END holeState_Init */
 }

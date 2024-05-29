@@ -33,33 +33,20 @@ typedef struct sub_struct
 
 typedef struct sub_struct sub_t;
 
-
-
 typedef struct drink_position
 {
-    menu_t *menu;
-    void (*drinkAdd)(menu_t*);
-    void (*drinkReset)(menu_t*);
-    void (*drinkDetected)(menu_t*);
+    void (*drinkAdd)(drinkpos_t*);
+    void (*drinkReset)(drinkpos_t*);
+    void (*drinkDetected)(drinkpos_t*);
 } drinkpos_t;
-
-typedef struct drink_position drinkpos_t;
-
-
 
 typedef struct Menu
 {
     sub_t *currentMenu;
-    //drinkpos_t *currentDrink;
     int cursorPos;
     int menuChanged;
     int subMenuFlag;
     int mililiters;
-    /*
-    void (*handleDrinkAdd)(menu_t*);
-    void (*handleDrinkReset)(menu_t*);
-    void (*handledrinkDetected)(menu_t*);
-    */
     void (*handleLeft)(menu_t*);
     void (*handleRight)(menu_t*);
     void (*clickedReact)(menu_t*);

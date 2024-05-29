@@ -1,0 +1,12 @@
+#include "shotHolder.h"
+#include <stdio.h>
+
+void drinkAdd(drinkpos_t* self){
+
+}
+void drinkReset(drinkpos_t* self){
+
+}
+void drinkDetected(drinkpos_t* self){
+
+}

@@ -1,10 +1,3 @@
-/*
- * menuHandler.h
- *
- *  Created on: Mar 31, 2024
- *      Author: 48791
- */
-
 #ifndef INC_MENUHANDLER_H_
 #define INC_MENUHANDLER_H_
 
@@ -33,32 +26,13 @@ typedef struct sub_struct
 
 typedef struct sub_struct sub_t;
 
-
-
-typedef struct drink_position
-{
-    menu_t *menu;
-    void (*drinkAdd)(menu_t*);
-    void (*drinkReset)(menu_t*);
-    void (*drinkDetected)(menu_t*);
-} drinkpos_t;
-
-typedef struct drink_position drinkpos_t;
-
-
-
 typedef struct Menu
 {
     sub_t *currentMenu;
-    drinkpos_t *currentDrink;
     int cursorPos;
     int menuChanged;
     int subMenuFlag;
     int mililiters;
-    /* next 3 apply to not implemented drink position detection */
-    void (*handleDrinkAdd)(menu_t*);
-    void (*handleDrinkReset)(menu_t*);
-    void (*handledrinkDetected)(menu_t*);
     void (*handleLeft)(menu_t*);
     void (*handleRight)(menu_t*);
     void (*clickedReact)(menu_t*);
@@ -87,4 +61,4 @@ void clickedReact1(menu_t* self);
 void clickedReact2(menu_t* self);
 void clickedReact3(menu_t* self);
 
-#endif /* INC_MENUHANDLER_H_ */
+#endif
