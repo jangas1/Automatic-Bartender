@@ -1,0 +1,5 @@
+../Core/Src/encoder.c:14:6:LeftReact	1
+../Core/Src/encoder.c:21:6:RightReact	1
+../Core/Src/encoder.c:27:6:ClickedReact	1
+../Core/Src/encoder.c:32:6:ISR	9
+../Core/Src/encoder.c:54:6:encoderInit	1

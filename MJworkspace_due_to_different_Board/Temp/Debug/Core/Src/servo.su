@@ -1,0 +1,4 @@
+../Core/Src/servo.c:8:14:degreeToRaw	16	static
+../Core/Src/servo.c:12:6:setRotation	16	static
+../Core/Src/servo.c:19:6:initServo	8	static
+../Core/Src/servo.c:25:8:map_range	56	static

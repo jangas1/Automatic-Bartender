@@ -1,5 +1,0 @@
-holeState1 - GPIO input - PC1 - Pull down
-diode1 - GPIO output - PC2
-FreeRTOS threads: 
-1. diodeDetector_Init
-2. holeState_Init

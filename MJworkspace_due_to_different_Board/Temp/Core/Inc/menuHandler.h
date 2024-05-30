@@ -3,6 +3,7 @@
 
 void defaultMenuCursorPos1();
 void defaultMenuCursorPos2();
+void defaultMenuCursorPos3();
 void sub2MenuCursorPos1();
 void sub2MenuCursorPos2();
 void sub3MenuCursorPos1();

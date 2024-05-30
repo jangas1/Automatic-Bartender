@@ -117,6 +117,12 @@ void Error_Handler(void);
 #define OTG_FS_OverCurrent_GPIO_Port GPIOD
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
+#define enc_CLICK_Pin GPIO_PIN_4
+#define enc_CLICK_GPIO_Port GPIOB
+#define enc_DATA_Pin GPIO_PIN_5
+#define enc_DATA_GPIO_Port GPIOB
+#define enc_CLK_Pin GPIO_PIN_6
+#define enc_CLK_GPIO_Port GPIOB
 #define MEMS_INT2_Pin GPIO_PIN_1
 #define MEMS_INT2_GPIO_Port GPIOE
 

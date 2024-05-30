@@ -4,6 +4,7 @@
 
 char FirstOpt[] = "Capacity";
 char SecondOpt[] = "Drink Counter";
+char ThirdOpt[] = "Pour";
 char FirstOptsub2[] = "Change Cap";
 char SecondOptsub2[] = "Back";
 char FirstOptsub3[] = "Reset";
@@ -33,6 +34,8 @@ void defaultMenu(){
 	HD44780_PrintStr(FirstOpt);
 	HD44780_SetCursor(0,1);
 	HD44780_PrintStr(SecondOpt);
+	HD44780_SetCursor(13,0);
+	HD44780_PrintStr(ThirdOpt);
 }
 
 void sub2Menu(menu_t* self){
@@ -79,6 +82,8 @@ void sub3Menu(){
 void defaultMenuCursorPos1(){
 	HD44780_SetCursor(sizeof(SecondOpt),1);
 	HD44780_PrintStr("  ");
+	HD44780_SetCursor(sizeof(ThirdOpt)+ 13,0);
+	HD44780_PrintStr("  ");
 	HD44780_SetCursor(sizeof(FirstOpt),0);
 	HD44780_PrintStr("<-");
 }
@@ -86,7 +91,18 @@ void defaultMenuCursorPos1(){
 void defaultMenuCursorPos2(){
 	HD44780_SetCursor(sizeof(FirstOpt),0);
 	HD44780_PrintStr("  ");
+	HD44780_SetCursor(sizeof(ThirdOpt)+ 13,0);
+	HD44780_PrintStr("  ");
 	HD44780_SetCursor(sizeof(SecondOpt),1);
+	HD44780_PrintStr("<-");
+}
+
+void defaultMenuCursorPos3(){
+	HD44780_SetCursor(sizeof(SecondOpt),1);
+	HD44780_PrintStr("  ");
+	HD44780_SetCursor(sizeof(FirstOpt),0);
+	HD44780_PrintStr("  ");
+	HD44780_SetCursor(sizeof(ThirdOpt)+ 13,0);
 	HD44780_PrintStr("<-");
 }
 
@@ -145,14 +161,14 @@ void leftReact1(menu_t* self){
 	self->menuChanged = 1;
 	self->cursorPos--;
 	if (self->cursorPos < 0){
-		self->cursorPos = 1;
+		self->cursorPos = 2;
 	}
 }
 
 void rightReact1(menu_t* self){
 	self->menuChanged = 1;
 	self->cursorPos++;
-	if (self->cursorPos > 1){
+	if (self->cursorPos > 2){
 		self->cursorPos = 0;
 	}
 }
@@ -168,12 +184,12 @@ void leftReact2(menu_t* self){
 			break;
 		case 2:
 			self->mililiters = self->mililiters - 5;
-			if(self->mililiters > 10){
+			if(self->mililiters < 10){
 				self->mililiters = 10;
 			}
 			break;
-		default:
-			menuError();
+		//default:
+		//	menuError();
 	}
 }
 
@@ -188,12 +204,12 @@ void rightReact2(menu_t* self){
 			break;
 		case 2:
 			self->mililiters = self->mililiters + 5;
-			if(self->mililiters < 95){
+			if(self->mililiters > 95){
 				self->mililiters = 95;
 			}
 			break;
-		default:
-			menuError();
+		//default:
+		//	menuError();
 	}
 }
 
@@ -222,13 +238,16 @@ void clickedReact1(menu_t* self){
 		case 1:
 			self->subMenuFlag = 3;
 			break;
-		default:
-			menuError();
+		case 2:
+			// TU PISZ DANIEL PROSZE KOCHANIE
+			break;
+		//default:
+		//	menuError();
 	}
 	self->cursorPos = 0;
 }
 
-void clickedReact2(menu_t* self){
+void clickedReact3(menu_t* self){
 	self->menuChanged = 1;
 	switch(self->cursorPos){
 		case 0:
@@ -238,12 +257,12 @@ void clickedReact2(menu_t* self){
 			self->subMenuFlag = 1;
 			self->cursorPos = 0;
 			break;
-		default:
-			menuError();
+		//default:
+		//	menuError();
 	}
 }
 
-void clickedReact3(menu_t* self){
+void clickedReact2(menu_t* self){
 	self->menuChanged = 1;
 	switch(self->cursorPos){
 		case 0:

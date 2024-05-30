@@ -6,8 +6,11 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="self-&gt;"/>
+		<item key="selection" value="Error"/>
 		<list key="findhistory">
+			<item value="Error"/>
+			<item value="menu"/>
+			<item value="drinkChange"/>
 			<item value="self."/>
 			<item value="DelayUS"/>
 			<item value="HAL_Delay"/>

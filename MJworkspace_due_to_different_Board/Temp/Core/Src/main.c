@@ -25,6 +25,8 @@
 #include "menuHandler.h"
 #include "shotHolder.h"
 #include "liquidcrystal_i2c.h"
+#include "servo.h"
+#include "encoder.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,6 +46,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c1;
+
+TIM_HandleTypeDef htim2;
 
 osThreadId defaultTaskHandle;
 osThreadId diodeDetectorHandle;
@@ -66,6 +70,7 @@ drinkpos_t drinkpos = {{0,0,0,0}, .drinkChange = drinkChange, .drinkReset = drin
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
+static void MX_TIM2_Init(void);
 void StartDefaultTask(void const * argument);
 void diodeDetector_Init(void const * argument);
 void holeState_Init(void const * argument);
@@ -128,8 +133,10 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
+  encoderInit();
+  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -207,8 +214,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 192;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
+  RCC_OscInitStruct.PLL.PLLN = 96;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 8;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -221,8 +228,8 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV4;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK)
   {
@@ -261,6 +268,51 @@ static void MX_I2C1_Init(void)
   /* USER CODE BEGIN I2C1_Init 2 */
 
   /* USER CODE END I2C1_Init 2 */
+
+}
+
+/**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM2_Init(void)
+{
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
+  htim2.Instance = TIM2;
+  htim2.Init.Prescaler = 0;
+  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim2.Init.Period = 60000;
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
 
 }
 
@@ -403,6 +455,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(OTG_FS_OverCurrent_GPIO_Port, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : enc_CLICK_Pin enc_DATA_Pin enc_CLK_Pin */
+  GPIO_InitStruct.Pin = enc_CLICK_Pin|enc_DATA_Pin|enc_CLK_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
@@ -425,10 +483,13 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
+	  /*
 	  osDelay(2000);
 	  menu.handleLeft(&menu);
 	  osDelay(2000);
 	  menu.clickedReact(&menu);
+	  */
+	  osDelay(10);
   }
   /* USER CODE END 5 */
 }
@@ -452,6 +513,8 @@ void diodeDetector_Init(void const * argument)
 	else{
 		HAL_GPIO_WritePin(diode1_GPIO_Port, diode1_Pin, 0);
 	}
+	/*
+
 	if (drinkpos.postitionOfDrinks[1] == 1){
 		HAL_GPIO_WritePin(diode2_GPIO_Port, diode2_Pin, 1);
 	}
@@ -470,6 +533,8 @@ void diodeDetector_Init(void const * argument)
 	else{
 		HAL_GPIO_WritePin(diode4_GPIO_Port, diode4_Pin, 0);
 	}
+
+	*/
 	osDelay(30);
   }
   /* USER CODE END diodeDetector_Init */
@@ -492,8 +557,10 @@ void holeState_Init(void const * argument)
 		drinkpos.drinkChange(&drinkpos, 1);
 	}
 	else{
-		drinkpos.drinkChange(&dirnkpos, 11);
+		drinkpos.drinkChange(&drinkpos, 11);
 	}
+	/*
+
 	if (HAL_GPIO_ReadPin(holeStatePin2_GPIO_Port, holeStatePin2_Pin) == 1){
 		drinkpos.drinkChange(&drinkpos, 2);
 	}
@@ -504,7 +571,7 @@ void holeState_Init(void const * argument)
 		drinkpos.drinkChange(&drinkpos, 3);
 	}
 	else{
-		drinkpos.drinkChange(&dirnkpos, 33);
+		drinkpos.drinkChange(&drinkpos, 33);
 	}
 	if (HAL_GPIO_ReadPin(holeStatePin4_GPIO_Port, holeStatePin4_Pin) == 1){
 		drinkpos.drinkChange(&drinkpos, 4);
@@ -512,6 +579,8 @@ void holeState_Init(void const * argument)
 	else{
 		drinkpos.drinkChange(&dirnkpos, 44);
 	}
+
+	*/
     osDelay(30);
   }
   /* USER CODE END holeState_Init */
@@ -546,8 +615,8 @@ void displayMenu_Init(void const * argument)
 	  	  case 3:
 	  		  menu.currentMenu = &SUB3;
 	  		  break;
-	  	  default:
-	  		  menuError();
+	  	  //default:
+	  	//	  menuError();
 	  }
 	  if(menu.menuChanged==1){
 		  if (menu.currentMenu==&SUB1){
@@ -559,8 +628,11 @@ void displayMenu_Init(void const * argument)
 			  	  case 1:
 			  		  defaultMenuCursorPos2();
 			  		  break;
-			  	  default:
-			  		  menuError();
+			  	  case 2:
+			  		  defaultMenuCursorPos3();
+			  		  break;
+			//  	  default:
+			//  		  menuError();
 			  }
 		  }
 		  if (menu.currentMenu==&SUB2){
@@ -572,8 +644,8 @@ void displayMenu_Init(void const * argument)
 			  	  case 1:
 			  		  sub2MenuCursorPos2();
 			  		  break;
-			  	  default:
-			  		  menuError();
+			  //	  default:
+			  //		  menuError();
 			  }
 		  }
 		  if (menu.currentMenu==&SUB3){
@@ -585,8 +657,8 @@ void displayMenu_Init(void const * argument)
 			  	  case 1:
 			  		  sub3MenuCursorPos2();
 			  		  break;
-			  	  default:
-			  		  menuError();
+			  //	  default:
+			  //		  menuError();
 			  }
 		  }
 	  menu.menuChanged = 0;
