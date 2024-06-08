@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="Error"/>
+		<item key="selection" value="osDe"/>
 		<list key="findhistory">
+			<item value="osDe"/>
 			<item value="Error"/>
 			<item value="menu"/>
 			<item value="drinkChange"/>

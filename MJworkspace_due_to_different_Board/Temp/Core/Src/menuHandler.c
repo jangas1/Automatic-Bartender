@@ -1,6 +1,8 @@
 #include "menuHandler.h"
 #include "liquidcrystal_i2c.h"
+#include "cmsis_os.h"
 #include <stdio.h>
+#include "servo.h"
 
 char FirstOpt[] = "Capacity";
 char SecondOpt[] = "Drink Counter";
@@ -239,10 +241,8 @@ void clickedReact1(menu_t* self){
 			self->subMenuFlag = 3;
 			break;
 		case 2:
-			// TU PISZ DANIEL PROSZE KOCHANIE
+			self->pourChanged = 1;
 			break;
-		//default:
-		//	menuError();
 	}
 	self->cursorPos = 0;
 }

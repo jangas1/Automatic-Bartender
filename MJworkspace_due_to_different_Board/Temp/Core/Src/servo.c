@@ -12,14 +12,14 @@ unsigned int degreeToRaw(double degrees){
 void setRotation(int desiredDegrees){
 	servo.rawPos = degreeToRaw(desiredDegrees);
 	servo.rotation=desiredDegrees;
-	TIM3->CCR2 = servo.rawPos;
+	TIM9->CCR1 = servo.rawPos;
 
 }
 
 void initServo(){
 	servo.rawPos=degreeToRaw(90);
 	servo.rotation=90;
-	TIM3->CCR2 = servo.rawPos;
+	TIM9->CCR1 = servo.rawPos;
 }
 
 double map_range(double value, double old_min, double old_max, double new_min, double new_max) {

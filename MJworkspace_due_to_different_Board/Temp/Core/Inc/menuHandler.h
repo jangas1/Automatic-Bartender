@@ -30,6 +30,7 @@ typedef struct sub_struct sub_t;
 typedef struct Menu
 {
     sub_t *currentMenu;
+    int pourChanged;
     int cursorPos;
     int menuChanged;
     int subMenuFlag;
