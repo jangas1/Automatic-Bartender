@@ -64,8 +64,8 @@ all: main-build
 main-build: Temp.elf secondary-outputs
 
 # Tool invocations
-Temp.elf Temp.map: $(OBJS) $(USER_OBJS) C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Temp.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Temp.elf Temp.map: $(OBJS) $(USER_OBJS) E:\Desktop\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Temp.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\Desktop\pmik_2024l_jd\MJworkspace_due_to_different_Board\Temp\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Temp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

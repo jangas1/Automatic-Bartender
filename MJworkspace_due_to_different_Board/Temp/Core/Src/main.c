@@ -83,33 +83,7 @@ void pourInit(void const * argument);
 /* USER CODE BEGIN PFP */
 /*
 
-void EncoderLeft(){
-	menuCursor = menuCursor - 1;
-	if (menuCursor < 0)
-	{
-		menuCursor = 4;
-	}
-	//defaultMenu();
-}
-
-void EncoderRight(){
-	menuCursor = menuCursor + 1;
-	if (menuCursor > 4)
-	{
-		menuCursor = 0;
-	}
-	//defaultMenu();
-}
 */
-
-void pump(int timeOn){
-	osDelay(2000);
-	HAL_GPIO_WritePin(pump_GPIO_Port, pump_Pin, 1);
-	osDelay(timeOn);
-	HAL_GPIO_WritePin(pump_GPIO_Port, pump_Pin, 0);
-	osDelay(2000);
-}
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -442,7 +416,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pins : holeStatePin1_Pin holeStatePin2_Pin */
   GPIO_InitStruct.Pin = holeStatePin1_Pin|holeStatePin2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PDM_OUT_Pin */
@@ -485,13 +459,13 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : holeStatePin3_Pin */
   GPIO_InitStruct.Pin = holeStatePin3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(holeStatePin3_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : holeStatePin4_Pin */
   GPIO_InitStruct.Pin = holeStatePin4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(holeStatePin4_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : CLK_IN_Pin PB12 */
@@ -567,13 +541,8 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	  /*
-	  drinkpos.postitionOfDrinks[0] = 1;
+
 	  osDelay(10000);
-	  drinkpos.postitionOfDrinks[0] = 0;
-	  osDelay(10000);
-  	  */
-	  osDelay(10);
   }
   /* USER CODE END 5 */
 }
@@ -617,7 +586,7 @@ void diodeDetector_Init(void const * argument)
 		HAL_GPIO_WritePin(diode4_GPIO_Port, diode4_Pin, 0);
 	}
 
-	osDelay(30);
+	osDelay(100);
   }
   /* USER CODE END diodeDetector_Init */
 }
@@ -636,33 +605,33 @@ void holeState_Init(void const * argument)
   for(;;)
   {
 
-	if (HAL_GPIO_ReadPin(holeStatePin1_GPIO_Port, holeStatePin1_Pin) == 1){
+	if (HAL_GPIO_ReadPin(holeStatePin1_GPIO_Port, holeStatePin1_Pin) == 0){
 		drinkpos.drinkChange(&drinkpos, 1);
 	}
 	else{
 		drinkpos.drinkChange(&drinkpos, 11);
 	}
 
-	if (HAL_GPIO_ReadPin(holeStatePin2_GPIO_Port, holeStatePin2_Pin) == 1){
+	if (HAL_GPIO_ReadPin(holeStatePin2_GPIO_Port, holeStatePin2_Pin) == 0){
 		drinkpos.drinkChange(&drinkpos, 2);
 	}
 	else{
 		drinkpos.drinkChange(&drinkpos, 22);
 	}
-	if (HAL_GPIO_ReadPin(holeStatePin3_GPIO_Port, holeStatePin3_Pin) == 1){
+	if (HAL_GPIO_ReadPin(holeStatePin3_GPIO_Port, holeStatePin3_Pin) == 0){
 		drinkpos.drinkChange(&drinkpos, 3);
 	}
 	else{
 		drinkpos.drinkChange(&drinkpos, 33);
 	}
-	if (HAL_GPIO_ReadPin(holeStatePin4_GPIO_Port, holeStatePin4_Pin) == 1){
+	if (HAL_GPIO_ReadPin(holeStatePin4_GPIO_Port, holeStatePin4_Pin) == 0){
 		drinkpos.drinkChange(&drinkpos, 4);
 	}
 	else{
 		drinkpos.drinkChange(&drinkpos, 44);
 	}
 
-    osDelay(30);
+    osDelay(100);
   }
   /* USER CODE END holeState_Init */
 }
@@ -750,6 +719,14 @@ void displayMenu_Init(void const * argument)
 }
 
 /* USER CODE BEGIN Header_pourInit */
+
+void pump(int timeOn){
+	osDelay(2000);
+	HAL_GPIO_WritePin(pump_GPIO_Port, pump_Pin, 1);
+	osDelay(timeOn);
+	HAL_GPIO_WritePin(pump_GPIO_Port, pump_Pin, 0);
+	osDelay(2000);
+}
 /**
 * @brief Function implementing the servoPour thread.
 * @param argument: Not used
@@ -787,6 +764,8 @@ void pourInit(void const * argument)
 			pump(menu.mililiters*200);
 			drinkAddCounter4();
 		}
+		osDelay(500);
+		setRotation(180);
 		menu.pourChanged = 0;
 	}
     osDelay(30);

@@ -1,5 +1,5 @@
-../Core/Src/encoder.c:14:6:LeftReact	8	static
-../Core/Src/encoder.c:21:6:RightReact	8	static
-../Core/Src/encoder.c:27:6:ClickedReact	8	static
-../Core/Src/encoder.c:32:6:ISR	8	static
-../Core/Src/encoder.c:54:6:encoderInit	4	static
+../Core/Src/encoder.c:25:6:LeftReact	8	static
+../Core/Src/encoder.c:34:6:RightReact	8	static
+../Core/Src/encoder.c:43:6:ClickedReact	8	static
+../Core/Src/encoder.c:53:6:ISR	8	static
+../Core/Src/encoder.c:80:6:encoderInit	4	static
