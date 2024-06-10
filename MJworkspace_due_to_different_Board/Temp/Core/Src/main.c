@@ -61,6 +61,11 @@ uint8_t holeState1 = 0;
 uint8_t menuCursor = 0;
 uint8_t subMenu = 0;
 
+/**
+ * @brief Assigns function names to each substructure and drink position structure
+ *
+ *  This allows to use "handleLeft", "handleRight" and "clickedReact" only for better clarity
+ */
 sub_t SUB1 = {.leftReact = leftReact1, .rightReact = rightReact1, .clickedReact=clickedReact1};
 sub_t SUB2 = {.leftReact = leftReact2, .rightReact = rightReact2, .clickedReact=clickedReact2};
 sub_t SUB3 = {.leftReact = leftReact3, .rightReact = rightReact3, .clickedReact=clickedReact3};
@@ -550,6 +555,8 @@ void StartDefaultTask(void const * argument)
 /* USER CODE BEGIN Header_diodeDetector_Init */
 /**
 * @brief Function implementing the diodeDetector thread.
+*
+* This thread is responsible for LED lightning when a shot glass is detected on holders positions
 * @param argument: Not used
 * @retval None
 */
@@ -594,6 +601,8 @@ void diodeDetector_Init(void const * argument)
 /* USER CODE BEGIN Header_holeState_Init */
 /**
 * @brief Function implementing the holeState thread.
+*
+* This thread is responsible for checking whether the glass is in position or has been removed from it
 * @param argument: Not used
 * @retval None
 */
@@ -639,6 +648,8 @@ void holeState_Init(void const * argument)
 /* USER CODE BEGIN Header_displayMenu_Init */
 /**
 * @brief Function implementing the displayMenu thread.
+*
+* This thread is responsible for permanently displaying current menu and current cursor position
 * @param argument: Not used
 * @retval None
 */
@@ -665,8 +676,6 @@ void displayMenu_Init(void const * argument)
 	  	  case 3:
 	  		  menu.currentMenu = &SUB3;
 	  		  break;
-	  	  //default:
-	  	//	  menuError();
 	  }
 	  if(menu.menuChanged==1){
 		  if (menu.currentMenu==&SUB1){
@@ -681,8 +690,6 @@ void displayMenu_Init(void const * argument)
 			  	  case 2:
 			  		  defaultMenuCursorPos3();
 			  		  break;
-			//  	  default:
-			//  		  menuError();
 			  }
 		  }
 		  if (menu.currentMenu==&SUB2){
@@ -694,8 +701,6 @@ void displayMenu_Init(void const * argument)
 			  	  case 1:
 			  		  sub2MenuCursorPos2();
 			  		  break;
-			  //	  default:
-			  //		  menuError();
 			  }
 		  }
 		  if (menu.currentMenu==&SUB3){
@@ -707,8 +712,6 @@ void displayMenu_Init(void const * argument)
 			  	  case 1:
 			  		  sub3MenuCursorPos2();
 			  		  break;
-			  //	  default:
-			  //		  menuError();
 			  }
 		  }
 	  menu.menuChanged = 0;
@@ -729,6 +732,8 @@ void pump(int timeOn){
 }
 /**
 * @brief Function implementing the servoPour thread.
+*
+* This thread s responsible for adjusting servo to proper positions and pouring correct amount of drink
 * @param argument: Not used
 * @retval None
 */
