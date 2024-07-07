@@ -1,0 +1,39 @@
+!SESSION 2024-06-13 11:18:22.997 -----------------------------------------------
+eclipse.buildId=Version 1.14.0
+java.version=17.0.8.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pl_PL
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-06-13 11:19:06.704
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-06-13 11:19:06.706
+!MESSAGE Log4j2 initialized with config file C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-06-13 11:19:10.184
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-06-13 11:19:57.282
+!MESSAGE Indexed 'TEST' (24 sources, 74 headers) in 5.04 sec: 10,099 declarations; 42,987 references; 15 unresolved inclusions; 1,016 syntax errors; 4,058 unresolved names (7.1%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-06-13 11:20:05.809
+!MESSAGE Indexed 'Temporary' (33 sources, 144 headers) in 5.11 sec: 14,184 declarations; 62,828 references; 1 unresolved inclusions; 202 syntax errors; 241 unresolved names (0.31%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-06-13 11:20:10.375
+!MESSAGE Indexed 'Temp' (40 sources, 154 headers) in 4.46 sec: 16,639 declarations; 80,702 references; 1 unresolved inclusions; 202 syntax errors; 246 unresolved names (0.25%)
+!SESSION 2024-06-20 00:39:30.506 -----------------------------------------------
+eclipse.buildId=Version 1.14.0
+java.version=17.0.8.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pl_PL
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-06-20 00:39:55.775
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-06-20 00:39:55.779
+!MESSAGE Log4j2 initialized with config file C:\Users\48791\Desktop\PMIK\pmik_2024l_jd\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-06-20 00:40:11.659
+!MESSAGE Started RMI Server, listening on port 41337
